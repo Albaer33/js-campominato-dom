@@ -39,11 +39,10 @@ function startGame() {
             this.classList.add('square-bomb');
 
             // aggiunge la scritta hai perso quando clicchi su un quadrato bomba
-            const mainDiv = document.querySelector('main');
-            const newh2 = document.createElement('h2');
-            newh2.innerHTML = `<h2>Hai perso il tuo punteggio è ${scoreCounter}</h2>`;
-
-            mainDiv.appendChild(newh2);
+            const loseSentence = document.querySelector('h2');
+            console.log(loseSentence);
+            loseSentence.classList.remove('hidden');
+            loseSentence.innerHTML += scoreCounter;
         }
         else {
             this.classList.add('square-active');
