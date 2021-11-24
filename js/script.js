@@ -7,7 +7,11 @@ function startGame() {
     // creare la griglia in base alla difficolta selezionata
     const numberOfSquares = gameModeSquares(gameMode);
     let generatedNumbers = generateSquaresNumbers(numberOfSquares);
-
+    const numberOfBombs = 16;
+    let bombNumbers = []
+    for(let i = 0; i < numberOfBombs; i++) {
+        bombNumbers[i] = generateBombs(gameMode);
+    }
     // Per ogni numero nell'array, creo una cella e la appendo al grid container
     const mainGrid = document.getElementById('grid');
     mainGrid.innerHTML = '';
@@ -74,18 +78,29 @@ function generateGridItem(number, str) {
     return newSquare;
 }
 
-// Genera un array con x numeri unici
+// Genera un array con quantityOfNumbers numero di elementi
 function generateSquaresNumbers (quantityOfNumbers) {
     const numbersArray = [];
-    while(numbersArray.length < quantityOfNumbers) {
-        const randomNumber = getRndInteger(1, quantityOfNumbers);
-        // Se il numero random non è gia presente in numbersArray lo pusho
-        if( !numbersArray.includes(randomNumber) ) {
-            numbersArray.push(randomNumber);
-        }
+    let i = 0;
+    while(i < quantityOfNumbers) {
+        numbersArray[i] = i+1;
+        i++;
     }
 
     return numbersArray;
+}
+
+// genera 16 numeri casuali nel l'intervallo basato sulla difficoltà
+function generateBombs(str) {
+    if (str === 'easy') {
+        return getRndInteger(1, 100);
+    }
+    else if (str === 'medium') {
+        return getRndInteger(1, 81);
+    }
+    else if (str === 'hard') {
+        return getRndInteger(1, 49);
+    }
 }
 
 function getRndInteger(min, max) {
