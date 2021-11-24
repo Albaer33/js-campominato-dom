@@ -12,7 +12,9 @@ function startGame() {
     const numberOfBombs = 16;
     const bombNumbers = generateBombs(gameMode);
     console.log(bombNumbers);
+
     // Per ogni numero nell'array, creo una cella e la appendo al grid container
+    let scoreCounter = 0;
     const mainGrid = document.getElementById('grid');
     mainGrid.innerHTML = '';
     for(let i = 0; i < generatedNumbers.length; i++) {
@@ -24,6 +26,7 @@ function startGame() {
         // Aggiungo l'elemento alla griglia
         mainGrid.appendChild(newGeneratedSquare);
     }
+
     // rendo la griglia pronta visibile dopo cliccato play
     mainGrid.classList.add('active');
 
@@ -34,13 +37,21 @@ function startGame() {
     function handleSquareClick() {
         if (bombNumbers.includes(parseInt(this.querySelector('span').innerHTML))) {
             this.classList.add('square-bomb');
+
+            // aggiunge la scritta hai perso quando clicchi su un quadrato bomba
+            const mainDiv = document.querySelector('main');
+            const newh2 = document.createElement('h2');
+            newh2.innerHTML = `<h2>Hai perso il tuo punteggio è ${scoreCounter}</h2>`;
+
+            mainDiv.appendChild(newh2);
         }
         else {
             this.classList.add('square-active');
+            scoreCounter++;
         }
     }
 
-    // genera un numero casuale nel l'intervallo basato sulla difficoltà
+    // genera un array di numeri casuali in un intervallo basato sulla difficolta scelta
     function generateBombs(str) {
         const array = [];
         let max;

@@ -44,10 +44,14 @@ main {
     height: calc(100% - 180px);
     background-color: #7fffd4;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+main h2 {
+    margin-top: 20px;
+}
 /* Game grid */
 .game-grid {
     visibility: hidden;
