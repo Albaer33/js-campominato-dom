@@ -7,18 +7,17 @@ function startGame() {
     // creare la griglia in base alla difficolta selezionata
     const numberOfSquares = gameModeSquares(gameMode);
     let generatedNumbers = generateSquaresNumbers(numberOfSquares);
+
+    // generare i numeri rappresentanti le bombe
     const numberOfBombs = 16;
-    let bombNumbers = []
-    for(let i = 0; i < numberOfBombs; i++) {
-        bombNumbers[i] = generateBombs(gameMode);
-    }
+    const bombNumbers = generateBombs(gameMode);
+    console.log(bombNumbers);
     // Per ogni numero nell'array, creo una cella e la appendo al grid container
     const mainGrid = document.getElementById('grid');
     mainGrid.innerHTML = '';
     for(let i = 0; i < generatedNumbers.length; i++) {
         const thisNumber = generatedNumbers[i];
         const newGeneratedSquare = generateGridItem(thisNumber, gameMode);
-
         // Attacco l'evento allo square
         newGeneratedSquare.addEventListener('click', handleSquareClick);
         
@@ -27,13 +26,47 @@ function startGame() {
     }
     // rendo la griglia pronta visibile dopo cliccato play
     mainGrid.classList.add('active');
+
+    // SPECIFIC FUNCTIONS
+
+    // al click su un quadrato aggiungo il colore azzurro o rosso
+    // se è un quadrato bomba aggiungo il rosso altrimenti l'azzurro
+    function handleSquareClick() {
+        if (bombNumbers.includes(parseInt(this.querySelector('span').innerHTML))) {
+            this.classList.add('square-bomb');
+        }
+        else {
+            this.classList.add('square-active');
+        }
+    }
+
+    // genera un numero casuale nel l'intervallo basato sulla difficoltà
+    function generateBombs(str) {
+        const array = [];
+        let max;
+        if (str === 'easy') {
+            max = 100;
+        }
+        else if (str === 'medium') {
+            max = 81;
+        }
+        else if (str === 'hard') {
+            max = 49;
+        }
+        while(array.length < numberOfBombs) {
+            let randomNumber = getRndInteger(1, max);
+            if(!array.includes(randomNumber)) {
+                array.push(randomNumber);
+            }
+        }
+        return array;
+    }
 }
 
 // FUNCTIONS
 
 // importa la difficoltà selezionata
-function getSelectValue()
-{
+function getSelectValue() {
     let selectedValue = document.getElementById("difficulty").value;
     return selectedValue;
 }
@@ -49,13 +82,6 @@ function gameModeSquares(str) {
     else if (str === 'hard') {
         return 49;
     }
-}
-
-// al click su un quadrato aggiungo active e il colore
-function handleSquareClick() {
-    this.classList.add('active');
-    const thisSquareNumber = parseInt( this.querySelector('span').textContent );
-    this.classList.add('square-active');
 }
 
 // Creare un elemento della griglia con grandezza basata sulla difficoltà
@@ -88,19 +114,6 @@ function generateSquaresNumbers (quantityOfNumbers) {
     }
 
     return numbersArray;
-}
-
-// genera 16 numeri casuali nel l'intervallo basato sulla difficoltà
-function generateBombs(str) {
-    if (str === 'easy') {
-        return getRndInteger(1, 100);
-    }
-    else if (str === 'medium') {
-        return getRndInteger(1, 81);
-    }
-    else if (str === 'hard') {
-        return getRndInteger(1, 49);
-    }
 }
 
 function getRndInteger(min, max) {

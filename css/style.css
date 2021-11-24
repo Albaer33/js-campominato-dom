@@ -84,7 +84,13 @@ main {
 .square-active {
     background-color: #6495ed;
 }
-.square.active span {
+.square-bomb {
+    background-color: #dc143c;
+}
+.square-active span {
+    color: white;
+}
+.square-bomb span {
     color: white;
 }
 /* FOOTER */
