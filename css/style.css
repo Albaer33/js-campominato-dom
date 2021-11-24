@@ -1,0 +1,97 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* COMMON */
+body {
+    font-family: arial;
+}
+.app-wrapper {
+    width: 100%;
+    height: 100vh;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 30px;
+}
+.logo-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+h1 {
+    padding: 0 20px;
+}
+.option {
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+}
+.option > * {
+    padding: 0 20px;
+}
+
+/* MAIN */
+main {
+    height: calc(100% - 180px);
+    background-color: #7fffd4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Game grid */
+.game-grid {
+    visibility: hidden;
+    width: 600px;
+    height: 600px;
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.game-grid.active {
+    visibility: visible;
+}
+
+.square {
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+.square-easy {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+.square-medium {
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+.square-hard {
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+.square-active {
+    background-color: #6495ed;
+}
+.square.active span {
+    color: white;
+}
+/* FOOTER */
+footer {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    font-size: 20px;
+    padding-left: 40px;
+}
